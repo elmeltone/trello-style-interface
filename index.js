@@ -10,14 +10,18 @@ const Card = React.createClass({
 
 const Deck = React.createClass({
   render: function() {
+    const cards = this.props.cards.map((card) => {
+      return (
+        <Card
+          key={card.id}
+          text={card.text}
+        />
+      );
+    });
     return (
       <div className="decks">
         <h3>{this.props.title}</h3>
-        <div className="cards-list">
-          <Card
-            text={this.props.cards}
-          />
-        </div>
+        {cards}
       </div>
     );
   },
@@ -25,39 +29,100 @@ const Deck = React.createClass({
 
 const Board = React.createClass({
   render: function() {
+    const decks = this.props.decks.map((deck) => {
+      return (
+        <Deck
+          key={deck.id}
+          title={deck.title}
+          cards={deck.cards}
+        />
+      );
+    });
     return (
       <div className="boards">
         <h2>{this.props.title}</h2>
         <div className="decks-list">
-          <Deck
-            key="0"
-            title="Deck 1"
-            cards={[
-                <Card key="0" text="Card 1" />,
-                <Card key="1" text="Card 2" />
-            ]}
-          />
-          <Deck
-            key="1"
-            title="Deck 2"
-            cards={[
-                <Card key="0" text="Card 1" />,
-                <Card key="1" text="Card 2" />
-            ]}
-          />
+          {decks}
         </div>
       </div>
     );
   },
 });
 
+const BoardList = React.createClass({
+  render: function() {
+    const boards = this.props.boards.map((board) => {
+      return (
+        <Board
+          key={board.id}
+          title={board.title}
+          decks={board.decks}
+        />
+      );
+    });
+    return (
+      <div className="boards">
+        {boards}
+      </div>
+    );
+  },
+});
+
+const BoardsDashboard = React.createClass({
+  getInitialState: function() {
+    return {
+      boards: [
+        {
+          title: "Board 1",
+          id: 1,
+          decks: [
+            {
+              title: "Deck 1",
+              id: 1,
+              cards: [
+                {
+                  text: "Card 1",
+                  id: 2
+                },
+                {
+                  text: "Card 2",
+                  id: 1
+                },
+              ],
+            },
+            {
+              title: "Deck 2",
+              id: 2,
+              cards: [
+                {
+                  text: "Card 1",
+                  id: 1,
+                },
+                {
+                  text: "Card 2",
+                  id: 2,
+                }
+              ],
+            },
+          ]
+        },
+      ],
+    };
+  },
+  render: function() {
+    return (
+      <div className="dashboard">
+        <BoardList
+          boards={this.state.boards}
+        />
+      </div>
+    );
+  },
+});
+
+
+
 ReactDOM.render(
-  <Board
-    title="Board 1"
-    decks={[
-      'Deck 1',
-      'Deck 2'
-    ]}
-  />,
+  <BoardsDashboard />,
   document.getElementById('content')
 );
