@@ -1,0 +1,32 @@
+/*
+Theme Name: Trello Style Interface
+Author: Michael J Melton <meltonm83@gmail.com>
+*/
+
+/***** Colors ******/
+
+$background: #27408b;
+$complement: #8b008b;
+$emphasis: #ff1493;
+$anchor: #00c5cd;
+$message: #32cd32;
+$plain: #ffffff;
+
+/*
+#27408b dark-blue
+#8b008b purple
+#ff1493 pink
+#00c5cd light-blue
+#32cd32 green
+*/
+
+/***** Normalize ******/
+
+@import 'normalize';
+
+/***** General Styles ******/
+
+body {
+  background: $background;
+  color: $anchor;
+}
