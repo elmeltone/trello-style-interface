@@ -8,7 +8,23 @@ const Card = React.createClass({
   },
 });
 
+const CardInput = React.createClass({
+  render: function () {
+    return (
+      <div className="card-form">
+        <input className="card-input" type="text"
+        placeholder="add a card" />
+        <input className="card-button" onClick={this.props.onClick}
+         type="submit" value="+" />
+      </div>
+    );
+  },
+});
+
 const Deck = React.createClass({
+  handleNewCard: function(card) {
+    this.props.onFormSubmit(card);
+  },
   render: function() {
     const cards = this.props.cards.map((card) => {
       return (
@@ -22,12 +38,18 @@ const Deck = React.createClass({
       <div className="decks">
         <h3>{this.props.title}</h3>
         {cards}
+        <CardInput
+          onClick={this.handleNewCard}
+        />
       </div>
     );
   },
 });
 
 const Board = React.createClass({
+  handleDeckNewCard: function(card) {
+    this.props.onSubmitCard(card);
+  },
   render: function() {
     const decks = this.props.decks.map((deck) => {
       return (
@@ -35,6 +57,7 @@ const Board = React.createClass({
           key={deck.id}
           title={deck.title}
           cards={deck.cards}
+          onFormSubmit={this.handleDeckNewCard}
         />
       );
     });
@@ -50,6 +73,9 @@ const Board = React.createClass({
 });
 
 const BoardList = React.createClass({
+  handleBoardNewCard: function(card) {
+    this.props.onAddCard(card);
+  },
   render: function() {
     const boards = this.props.boards.map((board) => {
       return (
@@ -57,6 +83,7 @@ const BoardList = React.createClass({
           key={board.id}
           title={board.title}
           decks={board.decks}
+          onSubmitCard={this.handleBoardNewCard}
         />
       );
     });
@@ -109,11 +136,29 @@ const BoardsDashboard = React.createClass({
       ],
     };
   },
+  handleAddCardSubmit: function(card) {
+    this.updateBoards(card);
+  },
+  updateBoards: function(attrs) {
+    this.setState({
+      boards: this.state.boards.map((board) => {
+        if (board.id === attrs.id) {
+          return Object.assign({}, board, {
+            title: attrs.title,
+            decks: attrs.decks,
+          });
+        } else {
+          return board;
+        }
+      }),
+    });
+  },
   render: function() {
     return (
       <div className="dashboard">
         <BoardList
           boards={this.state.boards}
+          onAddCard={this.handleAddCardSubmit}
         />
       </div>
     );
