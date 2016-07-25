@@ -23,7 +23,7 @@ const CardInput = React.createClass({
 
 const Deck = React.createClass({
   handleNewCard: function(card) {
-    this.props.onFormSubmit(card);
+    this.props.onCardSubmit(card);
   },
   render: function() {
     const cards = this.props.cards.map((card) => {
@@ -47,8 +47,8 @@ const Deck = React.createClass({
 });
 
 const Board = React.createClass({
-  handleDeckNewCard: function(card) {
-    this.props.onSubmitCard(card);
+  handleNewCard: function(card) {
+    this.props.onCardSubmit(card);
   },
   render: function() {
     const decks = this.props.decks.map((deck) => {
@@ -57,7 +57,7 @@ const Board = React.createClass({
           key={deck.id}
           title={deck.title}
           cards={deck.cards}
-          onFormSubmit={this.handleDeckNewCard}
+          onCardSubmit={this.handleNewCard}
         />
       );
     });
@@ -73,8 +73,8 @@ const Board = React.createClass({
 });
 
 const BoardList = React.createClass({
-  handleBoardNewCard: function(card) {
-    this.props.onAddCard(card);
+  handleNewCard: function(card) {
+    this.props.onCardSubmit(card);
   },
   render: function() {
     const boards = this.props.boards.map((board) => {
@@ -83,7 +83,7 @@ const BoardList = React.createClass({
           key={board.id}
           title={board.title}
           decks={board.decks}
-          onSubmitCard={this.handleBoardNewCard}
+          onCardSubmit={this.handleNewCard}
         />
       );
     });
@@ -136,10 +136,24 @@ const BoardsDashboard = React.createClass({
       ],
     };
   },
-  handleAddCardSubmit: function(card) {
-    this.updateBoards(card);
+  handleNewCard: function(card) {
+    function guid() {
+      return Math.random().toString(36).substring(2, 15) +
+        Math.random().toString(36).substring(2, 15);
+    };
+    function newCard(attrs = {}) {
+      const card = {
+        text: attrs.text,
+        id: guid(),
+      };
+      return card;
+    };
+    const c = newCard(card);
+    this.setState({
+      boards: this.state.boards.decks.cards.concat(c),
+    });
   },
-  updateBoards: function(attrs) {
+  /*updateBoards: function(attrs) {
     this.setState({
       boards: this.state.boards.map((board) => {
         if (board.id === attrs.id) {
@@ -152,13 +166,13 @@ const BoardsDashboard = React.createClass({
         }
       }),
     });
-  },
+  },*/
   render: function() {
     return (
       <div className="dashboard">
         <BoardList
           boards={this.state.boards}
-          onAddCard={this.handleAddCardSubmit}
+          onCardSubmit={this.handleNewCard}
         />
       </div>
     );
