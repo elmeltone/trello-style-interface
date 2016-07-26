@@ -1,11 +1,3 @@
-function enterKey() {
-  $('.card-input').keypress(function(e){
-      if(e.keyCode==13)
-      $('.card-button').click();
-    });
-};
-
-
 function guid() {
   return Math.random().toString(36).substring(2, 15) +
     Math.random().toString(36).substring(2, 15);
@@ -22,20 +14,22 @@ const Card = React.createClass({
 });
 
 const CardInput = React.createClass({
-  handleNewCard: function() {
+  handleNewCard: function(e) {
+    e.preventDefault();
     this.props.onClick({
       title: this.refs.title.value,
       board: this.props.boardID,
       deck: this.props.deckID
     });
+    this.refs.title.value = '';
   },
   render: function () {
     return (
       <div className="card-form">
-        <input className="card-input" ref="title" type="text"
-        placeholder="add a card" />
-        <input className="card-button" onClick={this.handleNewCard}
-         type="submit" value="+" />
+        <form onSubmit={this.handleNewCard}>
+          <input className="card-input" ref="title" type="text"
+          placeholder="add a card" />
+        </form>
       </div>
     );
   },
@@ -178,7 +172,7 @@ const BoardsDashboard = React.createClass({
           if (boards[i].id == args.board) {
             board = i;
           };
-          for (var j = 0; j < boards[i].decks[j].length; j++) {
+          for (var j = 0; j < boards[i].decks.length; j++) {
             if (boards[i].decks[j].id == args.deck) {
               deck = j;
             }
@@ -207,4 +201,3 @@ ReactDOM.render(
   <BoardsDashboard />,
   document.getElementById('content')
 );
-enterKey();
