@@ -1,3 +1,10 @@
+function enterKey() {
+  $('.card-input').keypress(function(e){
+      if(e.keyCode==13)
+      $('.card-button').click();
+    });
+};
+
 const Card = React.createClass({
   render: function () {
     return (
@@ -9,12 +16,15 @@ const Card = React.createClass({
 });
 
 const CardInput = React.createClass({
+  handleNewCard: function() {
+    this.props.onClick(this.refs.title.value)
+  },
   render: function () {
     return (
       <div className="card-form">
-        <input className="card-input" type="text"
+        <input className="card-input" ref="title" type="text"
         placeholder="add a card" />
-        <input className="card-button" onClick={this.props.onClick}
+        <input className="card-button" onClick={this.handleNewCard}
          type="submit" value="+" />
       </div>
     );
@@ -22,8 +32,8 @@ const CardInput = React.createClass({
 });
 
 const Deck = React.createClass({
-  handleNewCard: function(card) {
-    this.props.onCardSubmit(card);
+  handleNewCard: function(title) {
+    this.props.onCardSubmit(title);
   },
   render: function() {
     const cards = this.props.cards.map((card) => {
@@ -47,8 +57,8 @@ const Deck = React.createClass({
 });
 
 const Board = React.createClass({
-  handleNewCard: function(card) {
-    this.props.onCardSubmit(card);
+  handleNewCard: function(title) {
+    this.props.onCardSubmit(title);
   },
   render: function() {
     const decks = this.props.decks.map((deck) => {
@@ -73,8 +83,8 @@ const Board = React.createClass({
 });
 
 const BoardList = React.createClass({
-  handleNewCard: function(card) {
-    this.props.onCardSubmit(card);
+  handleNewCard: function(title) {
+    this.props.onCardSubmit(title);
   },
   render: function() {
     const boards = this.props.boards.map((board) => {
@@ -136,37 +146,25 @@ const BoardsDashboard = React.createClass({
       ],
     };
   },
-  handleNewCard: function(card) {
+  handleNewCard: function(title) {
     function guid() {
       return Math.random().toString(36).substring(2, 15) +
         Math.random().toString(36).substring(2, 15);
     };
-    function newCard(attrs = {}) {
+    function newCard(title) {
       const card = {
-        text: attrs.text,
+        text: title,
         id: guid(),
       };
       return card;
     };
-    const c = newCard(card);
+    const c = newCard(title);
+    let boards = this.state.boards;
+    boards[0].decks[0].cards.push(c);
     this.setState({
-      boards: this.state.boards.decks.cards.concat(c),
+      boards: boards,
     });
   },
-  /*updateBoards: function(attrs) {
-    this.setState({
-      boards: this.state.boards.map((board) => {
-        if (board.id === attrs.id) {
-          return Object.assign({}, board, {
-            title: attrs.title,
-            decks: attrs.decks,
-          });
-        } else {
-          return board;
-        }
-      }),
-    });
-  },*/
   render: function() {
     return (
       <div className="dashboard">
@@ -185,3 +183,4 @@ ReactDOM.render(
   <BoardsDashboard />,
   document.getElementById('content')
 );
+enterKey();

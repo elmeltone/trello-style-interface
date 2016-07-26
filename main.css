@@ -380,5 +380,27 @@ textarea {
 
 /***** General Styles ******/
 body {
+  background: #2aac2a;
+  color: #27408b;
+  padding: 16px; }
+
+/***** Detailed Styles ******/
+.boards, .decks, .cards {
+  margin: 4px; }
+
+.boards, .decks {
+  padding: 4px; }
+
+.boards {
   background: #27408b;
   color: #00c5cd; }
+
+.decks {
+  background: #00c5cd;
+  color: #27408b; }
+
+.card-input {
+  margin: 4px 0; }
+
+.card-button {
+  display: none; }

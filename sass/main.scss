@@ -27,6 +27,35 @@ $plain: #ffffff;
 /***** General Styles ******/
 
 body {
+  background: darken($message, 8%);
+  color: $background;
+  padding: 16px;
+}
+
+/***** Detailed Styles ******/
+
+.boards, .decks, .cards {
+  margin: 4px;
+}
+
+.boards, .decks {
+  padding: 4px;
+}
+
+.boards {
   background: $background;
   color: $anchor;
+}
+
+.decks {
+  background: $anchor;
+  color: $background;
+}
+
+.card-input {
+  margin: 4px 0;
+}
+
+.card-button {
+  display: none;
 }
