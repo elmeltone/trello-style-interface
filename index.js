@@ -5,6 +5,12 @@ function enterKey() {
     });
 };
 
+
+function guid() {
+  return Math.random().toString(36).substring(2, 15) +
+    Math.random().toString(36).substring(2, 15);
+};
+
 const Card = React.createClass({
   render: function () {
     return (
@@ -17,7 +23,11 @@ const Card = React.createClass({
 
 const CardInput = React.createClass({
   handleNewCard: function() {
-    this.props.onClick(this.refs.title.value)
+    this.props.onClick({
+      title: this.refs.title.value,
+      board: this.props.boardID,
+      deck: this.props.deckID
+    });
   },
   render: function () {
     return (
@@ -32,8 +42,8 @@ const CardInput = React.createClass({
 });
 
 const Deck = React.createClass({
-  handleNewCard: function(title) {
-    this.props.onCardSubmit(title);
+  handleNewCard: function(args) {
+    this.props.onCardSubmit(args);
   },
   render: function() {
     const cards = this.props.cards.map((card) => {
@@ -50,6 +60,8 @@ const Deck = React.createClass({
         {cards}
         <CardInput
           onClick={this.handleNewCard}
+          boardID={this.props.boardID}
+          deckID={this.props.id}
         />
       </div>
     );
@@ -57,14 +69,16 @@ const Deck = React.createClass({
 });
 
 const Board = React.createClass({
-  handleNewCard: function(title) {
-    this.props.onCardSubmit(title);
+  handleNewCard: function(args) {
+    this.props.onCardSubmit(args);
   },
   render: function() {
     const decks = this.props.decks.map((deck) => {
       return (
         <Deck
           key={deck.id}
+          id={deck.id}
+          boardID={this.props.id}
           title={deck.title}
           cards={deck.cards}
           onCardSubmit={this.handleNewCard}
@@ -83,14 +97,15 @@ const Board = React.createClass({
 });
 
 const BoardList = React.createClass({
-  handleNewCard: function(title) {
-    this.props.onCardSubmit(title);
+  handleNewCard: function(args) {
+    this.props.onCardSubmit(args);
   },
   render: function() {
     const boards = this.props.boards.map((board) => {
       return (
         <Board
           key={board.id}
+          id={board.id}
           title={board.title}
           decks={board.decks}
           onCardSubmit={this.handleNewCard}
@@ -146,11 +161,8 @@ const BoardsDashboard = React.createClass({
       ],
     };
   },
-  handleNewCard: function(title) {
-    function guid() {
-      return Math.random().toString(36).substring(2, 15) +
-        Math.random().toString(36).substring(2, 15);
-    };
+  handleNewCard: function(args) {
+    console.log(args);
     function newCard(title) {
       const card = {
         text: title,
@@ -158,9 +170,21 @@ const BoardsDashboard = React.createClass({
       };
       return card;
     };
-    const c = newCard(title);
+    const c = newCard(args.title);
     let boards = this.state.boards;
-    boards[0].decks[0].cards.push(c);
+    let board = 0;
+    let deck = 0;
+        for (var i = 0; i < boards.length; i++) {
+          if (boards[i].id == args.board) {
+            board = i;
+          };
+          for (var j = 0; j < boards[i].decks[j].length; j++) {
+            if (boards[i].decks[j].id == args.deck) {
+              deck = j;
+            }
+          }
+        }
+    boards[board].decks[deck].cards.push(c);
     this.setState({
       boards: boards,
     });
