@@ -402,7 +402,8 @@ input {
 
 #masthead {
   background: #F2EBC7;
-  color: #348899; }
+  color: #348899;
+  margin-bottom: 12px; }
 
 .boards {
   background: #343642;
