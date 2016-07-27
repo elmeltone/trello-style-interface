@@ -378,26 +378,42 @@ textarea {
   font: inherit;
   /* 2 */ }
 
+/***** Mixins ******/
 /***** General Styles ******/
+* {
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  border-radius: 4px; }
+
 body {
-  background: #2aac2a;
-  color: #27408b;
-  padding: 16px; }
+  background: #343642;
+  color: #F2EBC7;
+  padding: 16px;
+  text-align: center; }
+
+input {
+  text-align: center; }
 
 /***** Detailed Styles ******/
 .boards, .decks, .cards {
-  margin: 4px; }
+  margin: 4px auto; }
 
 .boards, .decks {
   padding: 4px; }
 
 .boards {
-  background: #27408b;
-  color: #00c5cd; }
+  background: #F2EBC7;
+  color: #343642;
+  max-width: 320px; }
 
 .decks {
-  background: #00c5cd;
-  color: #27408b; }
+  background: #3a99ac;
+  color: #F2EBC7; }
+
+.cards {
+  background: #343642;
+  color: #F2EBC7; }
 
 .card-input {
   margin: 4px 0; }

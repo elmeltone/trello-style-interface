@@ -5,11 +5,11 @@ Author: Michael J Melton <meltonm83@gmail.com>
 
 /***** Colors ******/
 
-$background: #27408b;
-$complement: #8b008b;
-$emphasis: #ff1493;
-$anchor: #00c5cd;
-$message: #32cd32;
+$background: #343642;
+$complement: #348899;
+$emphasis: #962D3E;
+$anchor: #F2EBC7;
+$message: #979C9C;
 $plain: #ffffff;
 
 /*
@@ -24,18 +24,48 @@ $plain: #ffffff;
 
 @import 'normalize';
 
+/***** Mixins ******/
+
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+     -moz-border-radius: $radius;
+      -ms-border-radius: $radius;
+          border-radius: $radius;
+}
+
+@mixin box-shadow($top, $left, $blur, $spread, $color, $inset: false) {
+  @if $inset {
+    -webkit-box-shadow:inset $top $left $blur $spread $color;
+    -moz-box-shadow:inset $top $left $blur $spread $color;
+    box-shadow:inset $top $left $blur $spread $color;
+  } @else {
+    -webkit-box-shadow: $top $left $blur $spread $color;
+    -moz-box-shadow: $top $left $blur $spread $color;
+    box-shadow: $top $left $blur $spread $color;
+  }
+}
+
 /***** General Styles ******/
 
+* {
+  @include border-radius(4px);
+}
+
 body {
-  background: darken($message, 8%);
-  color: $background;
+  background: $background;
+  color: $anchor;
   padding: 16px;
+  text-align: center;
+}
+
+input {
+  text-align: center;
 }
 
 /***** Detailed Styles ******/
 
 .boards, .decks, .cards {
-  margin: 4px;
+  margin: 4px auto;
 }
 
 .boards, .decks {
@@ -43,13 +73,19 @@ body {
 }
 
 .boards {
-  background: $background;
-  color: $anchor;
+  background: $anchor;
+  color: $background;
+  max-width: 320px;
 }
 
 .decks {
-  background: $anchor;
-  color: $background;
+  background: lighten($complement, 5%);
+  color: $anchor;
+}
+
+.cards {
+  background: $background;
+  color: $anchor;
 }
 
 .card-input {
