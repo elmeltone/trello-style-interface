@@ -52,7 +52,7 @@ $plain: #ffffff;
 }
 
 body {
-  background: lighten($background, 5%);
+  background: lighten($background, 8%);
   color: $complement;
   padding: 16px;
   text-align: center;
@@ -76,7 +76,7 @@ input {
 }
 
 .boards {
-  background: $complement;
+  background: $background;
   color: $anchor;
   max-width: 320px;
 }
