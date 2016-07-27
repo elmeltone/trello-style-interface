@@ -387,8 +387,8 @@ textarea {
   border-radius: 4px; }
 
 body {
-  background: #343642;
-  color: #F2EBC7;
+  background: #3f4250;
+  color: #348899;
   padding: 16px;
   text-align: center; }
 
@@ -396,23 +396,25 @@ input {
   text-align: center; }
 
 /***** Detailed Styles ******/
-.boards, .decks, .cards {
-  margin: 4px auto; }
-
-.boards, .decks {
+.masthead, .boards, .decks, .cards {
+  margin: 4px auto;
   padding: 4px; }
 
-.boards {
+#masthead {
   background: #F2EBC7;
-  color: #343642;
+  color: #348899; }
+
+.boards {
+  background: #348899;
+  color: #F2EBC7;
   max-width: 320px; }
 
 .decks {
-  background: #3a99ac;
-  color: #F2EBC7; }
+  background: #F2EBC7;
+  color: #348899; }
 
 .cards {
-  background: #343642;
+  background: #348899;
   color: #F2EBC7; }
 
 .card-input {

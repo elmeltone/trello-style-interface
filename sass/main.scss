@@ -52,8 +52,8 @@ $plain: #ffffff;
 }
 
 body {
-  background: $background;
-  color: $anchor;
+  background: lighten($background, 5%);
+  color: $complement;
   padding: 16px;
   text-align: center;
 }
@@ -64,27 +64,30 @@ input {
 
 /***** Detailed Styles ******/
 
-.boards, .decks, .cards {
+.masthead, .boards, .decks, .cards {
   margin: 4px auto;
-}
-
-.boards, .decks {
   padding: 4px;
 }
 
-.boards {
+#masthead {
   background: $anchor;
-  color: $background;
+  color: $complement;
+
+}
+
+.boards {
+  background: $complement;
+  color: $anchor;
   max-width: 320px;
 }
 
 .decks {
-  background: lighten($complement, 5%);
-  color: $anchor;
+  background: $anchor;
+  color: $complement;
 }
 
 .cards {
-  background: $background;
+  background: $complement;
   color: $anchor;
 }
 
