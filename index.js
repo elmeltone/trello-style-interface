@@ -62,9 +62,29 @@ const Deck = React.createClass({
   },
 });
 
+const DeckInput = React.createClass({
+  handleNewDeck: function(e) {
+    e.preventDefault();
+    this.props.onClick({
+      title: "New Deck",
+      board: this.props.boardID,
+      cards: this.props.cards,
+    });
+  },
+  render: function () {
+    return (
+      <input className="decks add" onClick={this.handleNewDeck}
+          type="button" value="add a deck" />
+    );
+  },
+});
+
 const Board = React.createClass({
   handleNewCard: function(args) {
     this.props.onCardSubmit(args);
+  },
+  handleNewDeck: function(args) {
+    this.props.onDeckSubmit(args);
   },
   render: function() {
     const decks = this.props.decks.map((deck) => {
@@ -84,6 +104,11 @@ const Board = React.createClass({
         <h2>{this.props.title}</h2>
         <div className="decks-list">
           {decks}
+          <DeckInput
+            onClick={this.handleNewDeck}
+            boardID={this.props.boardID}
+            cards={[]}
+          />
         </div>
       </div>
     );
@@ -94,6 +119,9 @@ const BoardList = React.createClass({
   handleNewCard: function(args) {
     this.props.onCardSubmit(args);
   },
+  handleNewDeck: function(args) {
+    this.props.onDeckSubmit(args);
+  },
   render: function() {
     const boards = this.props.boards.map((board) => {
       return (
@@ -103,11 +131,12 @@ const BoardList = React.createClass({
           title={board.title}
           decks={board.decks}
           onCardSubmit={this.handleNewCard}
+          onDeckSubmit={this.handleNewDeck}
         />
       );
     });
     return (
-      <div className="boards">
+      <div>
         {boards}
       </div>
     );
@@ -183,12 +212,36 @@ const BoardsDashboard = React.createClass({
       boards: boards,
     });
   },
+  handleNewDeck: function(args) {
+    console.log(args);
+    function newDeck(title) {
+      const deck = {
+        title: "New Deck",
+        id: guid(),
+        cards: [],
+      };
+      return deck;
+    };
+    const d = newDeck(args.title);
+    let boards = this.state.boards;
+    let board = 0;
+        for (var i = 0; i < boards.length; i++) {
+          if (boards[i].id == args.board) {
+            board = i;
+          }
+        }
+    boards[board].decks.push(d);
+    this.setState({
+      boards: boards,
+    });
+  },
   render: function() {
     return (
       <div className="dashboard">
         <BoardList
           boards={this.state.boards}
           onCardSubmit={this.handleNewCard}
+          onDeckSubmit={this.handleNewDeck}
         />
       </div>
     );

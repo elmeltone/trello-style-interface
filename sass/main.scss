@@ -1,23 +1,23 @@
 /*
-Theme Name: Trello Style Interface
+Theme Name: DEX
 Author: Michael J Melton <meltonm83@gmail.com>
 */
 
 /***** Colors ******/
 
-$background: #343642;
-$complement: #348899;
-$emphasis: #962D3E;
-$anchor: #F2EBC7;
-$message: #979C9C;
+$background: #0E3D59;
+$complement: #32cd32;
+$anchor: #F29F05;
+$message: #F25C05;
+$emphasis: #D92525;
 $plain: #ffffff;
 
 /*
-#27408b dark-blue
-#8b008b purple
-#ff1493 pink
-#00c5cd light-blue
-#32cd32 green
+#0E3D59 dark blue
+#88A61B green
+#F29F05 gold
+#F25C05 orange
+#D92525 red
 */
 
 /***** Normalize ******/
@@ -60,35 +60,53 @@ body {
 
 input {
   text-align: center;
+  border: none;
 }
 
 /***** Detailed Styles ******/
 
-.masthead, .boards, .decks, .cards {
+.masthead, .boards, .decks, .cards, .add {
   margin: 4px auto;
   padding: 4px;
 }
 
+.masthead, .boards, .add {
+  text-decoration: underline;
+}
+
 #masthead {
-  background: $anchor;
+  background: $background;
   color: $complement;
   margin-bottom: 12px;
+  border: 2px solid $complement;
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .boards {
-  background: $background;
-  color: $anchor;
+  background: $complement;
+  color: $background;
   max-width: 320px;
+  border: 2px solid $background;
 }
 
 .decks {
-  background: $anchor;
+  background: $background;
   color: $complement;
 }
 
+.add {
+  cursor: pointer;
+  border: 2px solid $background;
+  background: lighten($background, 8%);
+}
+
 .cards {
-  background: $complement;
-  color: $anchor;
+  background: lighten($background, 8%);
+  color: $complement;
+  border: 2px solid $background;
+  text-decoration: none;
 }
 
 .card-input {

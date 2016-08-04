@@ -1,14 +1,14 @@
 /*
-Theme Name: Trello Style Interface
+Theme Name: DEX
 Author: Michael J Melton <meltonm83@gmail.com>
 */
 /***** Colors ******/
 /*
-#27408b dark-blue
-#8b008b purple
-#ff1493 pink
-#00c5cd light-blue
-#32cd32 green
+#0E3D59 dark blue
+#88A61B green
+#F29F05 gold
+#F25C05 orange
+#D92525 red
 */
 /***** Normalize ******/
 /*! normalize.css v4.1.1 | MIT License | github.com/necolas/normalize.css */
@@ -387,36 +387,52 @@ textarea {
   border-radius: 4px; }
 
 body {
-  background: #464959;
-  color: #348899;
+  background: #14557c;
+  color: #32cd32;
   padding: 16px;
   text-align: center; }
 
 input {
-  text-align: center; }
+  text-align: center;
+  border: none; }
 
 /***** Detailed Styles ******/
-.masthead, .boards, .decks, .cards {
+.masthead, .boards, .decks, .cards, .add {
   margin: 4px auto;
   padding: 4px; }
 
+.masthead, .boards, .add {
+  text-decoration: underline; }
+
 #masthead {
-  background: #F2EBC7;
-  color: #348899;
-  margin-bottom: 12px; }
+  background: #0E3D59;
+  color: #32cd32;
+  margin-bottom: 12px;
+  border: 2px solid #32cd32;
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto; }
 
 .boards {
-  background: #343642;
-  color: #F2EBC7;
-  max-width: 320px; }
+  background: #32cd32;
+  color: #0E3D59;
+  max-width: 320px;
+  border: 2px solid #0E3D59; }
 
 .decks {
-  background: #F2EBC7;
-  color: #348899; }
+  background: #0E3D59;
+  color: #32cd32; }
+
+.add {
+  cursor: pointer;
+  border: 2px solid #0E3D59;
+  background: #14557c; }
 
 .cards {
-  background: #348899;
-  color: #F2EBC7; }
+  background: #14557c;
+  color: #32cd32;
+  border: 2px solid #0E3D59;
+  text-decoration: none; }
 
 .card-input {
   margin: 4px 0; }
