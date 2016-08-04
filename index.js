@@ -68,7 +68,7 @@ const DeckInput = React.createClass({
     this.props.onClick({
       title: "New Deck",
       board: this.props.boardID,
-      cards: this.props.cards,
+      cards: this.props.cards
     });
   },
   render: function () {
@@ -106,7 +106,7 @@ const Board = React.createClass({
           {decks}
           <DeckInput
             onClick={this.handleNewDeck}
-            boardID={this.props.boardID}
+            boardID={this.props.id}
             cards={[]}
           />
         </div>
@@ -214,15 +214,15 @@ const BoardsDashboard = React.createClass({
   },
   handleNewDeck: function(args) {
     console.log(args);
-    function newDeck(title) {
+    function newDeck(opts) {
       const deck = {
-        title: "New Deck",
+        title: opts.title,
         id: guid(),
-        cards: [],
+        cards: opts.cards
       };
       return deck;
     };
-    const d = newDeck(args.title);
+    const d = newDeck(args);
     let boards = this.state.boards;
     let board = 0;
         for (var i = 0; i < boards.length; i++) {

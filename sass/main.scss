@@ -65,12 +65,12 @@ input {
 
 /***** Detailed Styles ******/
 
-.masthead, .boards, .decks, .cards, .add {
+h2, h3, .masthead, .boards, .decks, .cards, .add {
   margin: 4px auto;
   padding: 4px;
 }
 
-.masthead, .boards, .add {
+.masthead, .boards {
   text-decoration: underline;
 }
 
@@ -98,8 +98,8 @@ input {
 
 .add {
   cursor: pointer;
-  border: 2px solid $background;
-  background: lighten($background, 8%);
+  border: 1px solid lighten($background, 8%);
+  background: $background;
 }
 
 .cards {
@@ -111,6 +111,7 @@ input {
 
 .card-input {
   margin: 4px 0;
+  background: lighten($background, 8%);
 }
 
 .card-button {

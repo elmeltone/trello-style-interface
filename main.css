@@ -397,11 +397,11 @@ input {
   border: none; }
 
 /***** Detailed Styles ******/
-.masthead, .boards, .decks, .cards, .add {
+h2, h3, .masthead, .boards, .decks, .cards, .add {
   margin: 4px auto;
   padding: 4px; }
 
-.masthead, .boards, .add {
+.masthead, .boards {
   text-decoration: underline; }
 
 #masthead {
@@ -425,8 +425,8 @@ input {
 
 .add {
   cursor: pointer;
-  border: 2px solid #0E3D59;
-  background: #14557c; }
+  border: 1px solid #14557c;
+  background: #0E3D59; }
 
 .cards {
   background: #14557c;
@@ -435,4 +435,5 @@ input {
   text-decoration: none; }
 
 .card-input {
-  margin: 4px 0; }
+  margin: 4px 0;
+  background: #14557c; }
