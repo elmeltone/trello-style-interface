@@ -436,4 +436,5 @@ h2, h3, .masthead, .boards, .decks, .cards, .add {
 
 .card-input {
   margin: 4px 0;
-  background: #14557c; }
+  background: #14557c;
+  color: #32cd32; }

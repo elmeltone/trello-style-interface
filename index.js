@@ -28,7 +28,7 @@ const CardInput = React.createClass({
       <div className="card-form">
         <form onSubmit={this.handleNewCard}>
           <input className="card-input" ref="title" type="text"
-          placeholder="add a card" />
+          placeholder="new card" />
         </form>
       </div>
     );
@@ -66,15 +66,20 @@ const DeckInput = React.createClass({
   handleNewDeck: function(e) {
     e.preventDefault();
     this.props.onClick({
-      title: "New Deck",
+      title: this.refs.title.value,
       board: this.props.boardID,
       cards: this.props.cards
     });
+    this.refs.title.value = '';
   },
   render: function () {
     return (
-      <input className="decks add" onClick={this.handleNewDeck}
-          type="button" value="add a deck" />
+      <div className="deck-form">
+        <form onSubmit={this.handleNewDeck}>
+          <input className="decks add" ref="title"
+            type="text" placeholder="new deck" />
+        </form>
+      </div>
     );
   },
 });
@@ -148,33 +153,33 @@ const BoardsDashboard = React.createClass({
     return {
       boards: [
         {
-          title: "Board 1",
+          title: "board 1",
           id: 1,
           decks: [
             {
-              title: "Deck 1",
+              title: "deck 1",
               id: 1,
               cards: [
                 {
-                  text: "Card 1",
+                  text: "card 1",
                   id: 2
                 },
                 {
-                  text: "Card 2",
+                  text: "card 2",
                   id: 1
                 },
               ],
             },
             {
-              title: "Deck 2",
+              title: "deck 2",
               id: 2,
               cards: [
                 {
-                  text: "Card 1",
+                  text: "card 1",
                   id: 1,
                 },
                 {
-                  text: "Card 2",
+                  text: "card 2",
                   id: 2,
                 }
               ],

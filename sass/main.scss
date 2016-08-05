@@ -112,7 +112,5 @@ h2, h3, .masthead, .boards, .decks, .cards, .add {
 .card-input {
   margin: 4px 0;
   background: lighten($background, 8%);
-}
-
-.card-button {
+  color: $complement;
 }
