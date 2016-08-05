@@ -129,6 +129,11 @@ const Board = React.createClass({
   handleDeleteDeck: function(args) {
     this.props.onDeleteDeck(args);
   },
+  handleDeleteBoard: function() {
+    this.props.onDeleteBoard({
+      id: this.props.id
+    });
+  },
   render: function() {
     const decks = this.props.decks.map((deck) => {
       return (
@@ -146,7 +151,12 @@ const Board = React.createClass({
     });
     return (
       <div className="boards">
-        <div className="delete board-icon">X</div>
+        <span
+        className="delete board-icon"
+        onClick={this.handleDeleteBoard}
+      >
+        <div>X</div>
+      </span>
         <h2>{this.props.title}</h2>
         <div className="decks-list">
           {decks}
@@ -198,6 +208,9 @@ const BoardList = React.createClass({
   handleNewBoard: function(args) {
     this.props.onBoardSubmit(args);
   },
+  handleDeleteBoard: function(args) {
+    this.props.onDeleteBoard(args);
+  },
   render: function() {
     const boards = this.props.boards.map((board) => {
       return (
@@ -210,6 +223,7 @@ const BoardList = React.createClass({
           onDeleteCard={this.handleDeleteCard}
           onDeckSubmit={this.handleNewDeck}
           onDeleteDeck={this.handleDeleteDeck}
+          onDeleteBoard={this.handleDeleteBoard}
         />
       );
     });
@@ -382,6 +396,21 @@ const BoardsDashboard = React.createClass({
       boards: boards,
     });
   },
+  handleDeleteBoard: function(data) {
+    console.log(data);
+    const b = data;
+    let boards = this.state.boards;
+    let board = 0;
+        for (var i = 0; i < boards.length; i++) {
+          if (boards[i].id == data) {
+            board = i;
+          };
+        }
+    boards.splice(board, 1);
+    this.setState({
+      boards: boards,
+    });
+  },
   render: function() {
     return (
       <div className="dashboard">
@@ -392,6 +421,7 @@ const BoardsDashboard = React.createClass({
           onDeckSubmit={this.handleNewDeck}
           onDeleteDeck={this.handleDeleteDeck}
           onBoardSubmit={this.handleNewBoard}
+          onDeleteBoard={this.handleDeleteBoard}
         />
       </div>
     );
