@@ -6,7 +6,7 @@ function guid() {
 const Card = React.createClass({
   handleDeleteCard: function() {
     this.props.onDeleteCard({
-      title: this.props.key,
+      id: this.props.id,
       board: this.props.boardID,
       deck: this.props.deckID
     });
@@ -60,6 +60,7 @@ const Deck = React.createClass({
       return (
         <Card
           key={card.id}
+          id={card.id}
           text={card.text}
           boardID={this.props.boardID}
           deckID={this.props.id}
@@ -276,7 +277,7 @@ const BoardsDashboard = React.createClass({
   },
   handleDeleteCard: function(args) {
     console.log(args);
-    const c = args.title;
+    const c = args.id;
     let boards = this.state.boards;
     let board = 0;
     let deck = 0;
@@ -289,8 +290,8 @@ const BoardsDashboard = React.createClass({
             if (boards[i].decks[j].id == args.deck) {
               deck = j;
             };
-            for (var k = 0; k < boards[i].decks[j].cards.length; j++) {
-              if (boards[i].decks[j].cards[k].id == args.title) {
+            for (var k = 0; k < boards[i].decks[j].cards.length; k++) {
+              if (boards[i].decks[j].cards[k].id == args.id) {
                 card = k;
               };
             }
