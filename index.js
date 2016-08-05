@@ -17,7 +17,7 @@ const Card = React.createClass({
         <span
           className="delete card-icon"
           onClick={this.handleDeleteCard}
-          >
+        >
           <div>x</div>
         </span>
         {this.props.text}
@@ -55,6 +55,12 @@ const Deck = React.createClass({
   handleDeleteCard: function(args) {
     this.props.onDeleteCard(args);
   },
+  handleDeleteDeck: function() {
+    this.props.onDeleteDeck({
+      id: this.props.id,
+      board: this.props.boardID
+    });
+  },
   render: function() {
     const cards = this.props.cards.map((card) => {
       return (
@@ -70,7 +76,12 @@ const Deck = React.createClass({
     });
     return (
       <div className="decks">
-        <div className="delete deck-icon">X</div>
+        <span
+        className="delete deck-icon"
+        onClick={this.handleDeleteDeck}
+        >
+          <div>X</div>
+        </span>
         <h3>{this.props.title}</h3>
         {cards}
         <CardInput
@@ -115,6 +126,9 @@ const Board = React.createClass({
   handleNewDeck: function(args) {
     this.props.onDeckSubmit(args);
   },
+  handleDeleteDeck: function(args) {
+    this.props.onDeleteDeck(args);
+  },
   render: function() {
     const decks = this.props.decks.map((deck) => {
       return (
@@ -126,6 +140,7 @@ const Board = React.createClass({
           cards={deck.cards}
           onCardSubmit={this.handleNewCard}
           onDeleteCard={this.handleDeleteCard}
+          onDeleteDeck={this.handleDeleteDeck}
         />
       );
     });
@@ -177,6 +192,9 @@ const BoardList = React.createClass({
   handleNewDeck: function(args) {
     this.props.onDeckSubmit(args);
   },
+  handleDeleteDeck: function(args) {
+    this.props.onDeleteDeck(args);
+  },
   handleNewBoard: function(args) {
     this.props.onBoardSubmit(args);
   },
@@ -191,6 +209,7 @@ const BoardList = React.createClass({
           onCardSubmit={this.handleNewCard}
           onDeleteCard={this.handleDeleteCard}
           onDeckSubmit={this.handleNewDeck}
+          onDeleteDeck={this.handleDeleteDeck}
         />
       );
     });
@@ -237,7 +256,7 @@ const BoardsDashboard = React.createClass({
                   id: 1,
                 },
                 {
-                  text: "find a barrel of wine to swim in",
+                  text: "find barrel of wine to swim in",
                   id: 2,
                 }
               ],
@@ -325,6 +344,27 @@ const BoardsDashboard = React.createClass({
       boards: boards,
     });
   },
+  handleDeleteDeck: function(args) {
+    console.log(args);
+    const d = args.id;
+    let boards = this.state.boards;
+    let board = 0;
+    let deck = 0;
+        for (var i = 0; i < boards.length; i++) {
+          if (boards[i].id == args.board) {
+            board = i;
+          };
+          for (var j = 0; j < boards[i].decks.length; j++) {
+            if (boards[i].decks[j].id == args.id) {
+              deck = j;
+            };
+          }
+        }
+    boards[board].decks.splice(deck, 1);
+    this.setState({
+      boards: boards,
+    });
+  },
   handleNewBoard: function(args) {
     console.log(args);
     function newBoard(opts) {
@@ -350,6 +390,7 @@ const BoardsDashboard = React.createClass({
           onCardSubmit={this.handleNewCard}
           onDeleteCard={this.handleDeleteCard}
           onDeckSubmit={this.handleNewDeck}
+          onDeleteDeck={this.handleDeleteDeck}
           onBoardSubmit={this.handleNewBoard}
         />
       </div>
