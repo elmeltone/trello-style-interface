@@ -413,11 +413,14 @@ h2, h3, .masthead, .boards, .decks, .cards, .add {
   margin-left: auto;
   margin-right: auto; }
 
-.boards {
+.boards, .board-input {
   background: #32cd32;
   color: #0E3D59;
   max-width: 320px;
   border: 2px solid #0E3D59; }
+
+.board-input {
+  font-size: 1.25rem; }
 
 .decks {
   background: #0E3D59;

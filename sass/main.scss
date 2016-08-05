@@ -84,11 +84,15 @@ h2, h3, .masthead, .boards, .decks, .cards, .add {
   margin-right: auto;
 }
 
-.boards {
+.boards, .board-input {
   background: $complement;
   color: $background;
   max-width: 320px;
   border: 2px solid $background;
+}
+
+.board-input {
+  font-size: 1.25rem,
 }
 
 .decks {

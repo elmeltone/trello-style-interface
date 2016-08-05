@@ -120,12 +120,36 @@ const Board = React.createClass({
   },
 });
 
+const BoardInput = React.createClass({
+  handleNewBoard: function(e) {
+    e.preventDefault();
+    this.props.onClick({
+      title: this.refs.title.value,
+      decks: this.props.decks
+    });
+    this.refs.title.value = '';
+  },
+  render: function () {
+    return (
+      <div className="board-form">
+        <form onSubmit={this.handleNewBoard}>
+          <input className="board-input" ref="title" type="text"
+          placeholder="new board" />
+        </form>
+      </div>
+    );
+  },
+});
+
 const BoardList = React.createClass({
   handleNewCard: function(args) {
     this.props.onCardSubmit(args);
   },
   handleNewDeck: function(args) {
     this.props.onDeckSubmit(args);
+  },
+  handleNewBoard: function(args) {
+    this.props.onBoardSubmit(args);
   },
   render: function() {
     const boards = this.props.boards.map((board) => {
@@ -143,6 +167,10 @@ const BoardList = React.createClass({
     return (
       <div>
         {boards}
+          <BoardInput
+            onClick={this.handleNewBoard}
+            decks={[]}
+          />
       </div>
     );
   },
@@ -240,6 +268,23 @@ const BoardsDashboard = React.createClass({
       boards: boards,
     });
   },
+  handleNewBoard: function(args) {
+    console.log(args);
+    function newBoard(opts) {
+      const board = {
+        title: opts.title,
+        id: guid(),
+        decks: opts.decks
+      };
+      return board;
+    };
+    const b = newBoard(args);
+    let boards = this.state.boards;
+    boards.push(b);
+    this.setState({
+      boards: boards,
+    });
+  },
   render: function() {
     return (
       <div className="dashboard">
@@ -247,6 +292,7 @@ const BoardsDashboard = React.createClass({
           boards={this.state.boards}
           onCardSubmit={this.handleNewCard}
           onDeckSubmit={this.handleNewDeck}
+          onBoardSubmit={this.handleNewBoard}
         />
       </div>
     );
