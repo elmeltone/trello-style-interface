@@ -4,9 +4,22 @@ function guid() {
 };
 
 const Card = React.createClass({
+  handleDeleteCard: function() {
+    this.props.onDeleteCard({
+      title: this.props.key,
+      board: this.props.boardID,
+      deck: this.props.deckID
+    });
+  },
   render: function () {
     return (
       <div className="cards">
+        <span
+          className="delete card-icon"
+          onClick={this.handleDeleteCard}
+          >
+          <div>x</div>
+        </span>
         {this.props.text}
       </div>
     );
@@ -39,23 +52,30 @@ const Deck = React.createClass({
   handleNewCard: function(args) {
     this.props.onCardSubmit(args);
   },
+  handleDeleteCard: function(args) {
+    this.props.onDeleteCard(args);
+  },
   render: function() {
     const cards = this.props.cards.map((card) => {
       return (
         <Card
           key={card.id}
           text={card.text}
+          boardID={this.props.boardID}
+          deckID={this.props.id}
+          onDeleteCard={this.handleDeleteCard}
         />
       );
     });
     return (
       <div className="decks">
+        <div className="delete deck-icon">X</div>
         <h3>{this.props.title}</h3>
         {cards}
         <CardInput
-          onClick={this.handleNewCard}
           boardID={this.props.boardID}
           deckID={this.props.id}
+          onClick={this.handleNewCard}
         />
       </div>
     );
@@ -88,6 +108,9 @@ const Board = React.createClass({
   handleNewCard: function(args) {
     this.props.onCardSubmit(args);
   },
+  handleDeleteCard: function(args) {
+    this.props.onDeleteCard(args);
+  },
   handleNewDeck: function(args) {
     this.props.onDeckSubmit(args);
   },
@@ -101,11 +124,13 @@ const Board = React.createClass({
           title={deck.title}
           cards={deck.cards}
           onCardSubmit={this.handleNewCard}
+          onDeleteCard={this.handleDeleteCard}
         />
       );
     });
     return (
       <div className="boards">
+        <div className="delete board-icon">X</div>
         <h2>{this.props.title}</h2>
         <div className="decks-list">
           {decks}
@@ -145,6 +170,9 @@ const BoardList = React.createClass({
   handleNewCard: function(args) {
     this.props.onCardSubmit(args);
   },
+  handleDeleteCard: function(args) {
+    this.props.onDeleteCard(args);
+  },
   handleNewDeck: function(args) {
     this.props.onDeckSubmit(args);
   },
@@ -160,6 +188,7 @@ const BoardList = React.createClass({
           title={board.title}
           decks={board.decks}
           onCardSubmit={this.handleNewCard}
+          onDeleteCard={this.handleDeleteCard}
           onDeckSubmit={this.handleNewDeck}
         />
       );
@@ -181,33 +210,33 @@ const BoardsDashboard = React.createClass({
     return {
       boards: [
         {
-          title: "board 1",
+          title: "things to do today",
           id: 1,
           decks: [
             {
-              title: "deck 1",
+              title: "before work",
               id: 1,
               cards: [
                 {
-                  text: "card 1",
+                  text: "feed the dogs",
                   id: 2
                 },
                 {
-                  text: "card 2",
+                  text: "take the trash out",
                   id: 1
                 },
               ],
             },
             {
-              title: "deck 2",
+              title: "after work",
               id: 2,
               cards: [
                 {
-                  text: "card 1",
+                  text: "walk the dogs",
                   id: 1,
                 },
                 {
-                  text: "card 2",
+                  text: "find a barrel of wine to swim in",
                   id: 2,
                 }
               ],
@@ -241,6 +270,33 @@ const BoardsDashboard = React.createClass({
           }
         }
     boards[board].decks[deck].cards.push(c);
+    this.setState({
+      boards: boards,
+    });
+  },
+  handleDeleteCard: function(args) {
+    console.log(args);
+    const c = args.title;
+    let boards = this.state.boards;
+    let board = 0;
+    let deck = 0;
+    let card = 0;
+        for (var i = 0; i < boards.length; i++) {
+          if (boards[i].id == args.board) {
+            board = i;
+          };
+          for (var j = 0; j < boards[i].decks.length; j++) {
+            if (boards[i].decks[j].id == args.deck) {
+              deck = j;
+            };
+            for (var k = 0; k < boards[i].decks[j].cards.length; j++) {
+              if (boards[i].decks[j].cards[k].id == args.title) {
+                card = k;
+              };
+            }
+          }
+        }
+    boards[board].decks[deck].cards.splice(card, 1);
     this.setState({
       boards: boards,
     });
@@ -291,6 +347,7 @@ const BoardsDashboard = React.createClass({
         <BoardList
           boards={this.state.boards}
           onCardSubmit={this.handleNewCard}
+          onDeleteCard={this.handleDeleteCard}
           onDeckSubmit={this.handleNewDeck}
           onBoardSubmit={this.handleNewBoard}
         />

@@ -419,6 +419,9 @@ h2, h3, .masthead, .boards, .decks, .cards, .add {
   max-width: 320px;
   border: 2px solid #0E3D59; }
 
+.delete {
+  float: left; }
+
 .board-input {
   font-size: 1.25rem; }
 
@@ -427,7 +430,6 @@ h2, h3, .masthead, .boards, .decks, .cards, .add {
   color: #32cd32; }
 
 .add {
-  cursor: pointer;
   border: 1px solid #14557c;
   background: #0E3D59; }
 
