@@ -1,31 +1,30 @@
 var path = require('path');
 
-var webpack = require('webpack');
-
-var packageData = require('./package.json');
-
-var filename = [packageData.name, packageData.version, 'js'];
-var plugins = [];ew webpack.optimize.UglifyJsPlugin());
-}
-
 module.exports = {
-  entry: path.resolve(__dirname, packageData.main),
+  entry: [
+    './index.js',
+    './index.html'
+  ],
   output: {
-    path: path.resolve(__dirname, 'scripts'),
-    filename: filename.join('.'),
+    path: path.join(__dirname, 'dist'),
+    filename: 'bundle.js',
+    publicPath: ''
   },
-  devtool: 'source-map',
   module: {
     loaders: [
       {
         test: /\.js$/,
-        exclude: /(node_modules)/,
         loader: 'babel',
-        query: {
-          presets: ['es2015']
-        }
+        include: path.join(__dirname, 'src')
+      },
+      {
+        test: /\.html$/,
+        loader: 'file?name=[name].[ext]'
+      },
+      {
+        test: /\.css$/,
+        loader: 'style!css'
       }
     ]
-  },
-  plugins: plugins
-}
+  }
+};
