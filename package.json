@@ -5,9 +5,9 @@
   "main": "components.js",
   "scripts": {
     "build": "npm run build:sass",
-    "build:sass": "node-sass sass/main.scss main.css",
+    "build:sass": "node-sass src/sass/main.scss src/main.css",
     "watch": "npm run watch:sass",
-    "watch:sass": "nodemon -e scss -w sass -x 'npm run build:sass'",
+    "watch:sass": "nodemon -e scss -w src/sass -x 'npm run build:sass'",
     "test": "mocha './src/**/*.spec.js' --compilers js:babel-core/register"
   },
   "author": "Michael J Melton <meltonm83@gmail.com>",
