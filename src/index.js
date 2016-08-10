@@ -1,7 +1,6 @@
-function guid() {
-  return Math.random().toString(36).substring(2, 15) +
-    Math.random().toString(36).substring(2, 15);
-};
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { guid } from './guid';
 
 const Card = React.createClass({
   handleDeleteCard: function() {

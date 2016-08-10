@@ -4,10 +4,11 @@
   "description": "",
   "main": "components.js",
   "scripts": {
-    "build": "npm run build:sass",
+    "build": "npm run build:sass && npm run build:js",
+    "watch": "npm run watch:sass && webpack --watch",
     "build:sass": "node-sass src/sass/main.scss src/main.css",
-    "watch": "npm run watch:sass",
     "watch:sass": "nodemon -e scss -w src/sass -x 'npm run build:sass'",
+    "build:js": "webpack --config webpack.config.js",
     "test": "mocha './src/**/*.spec.js' --compilers js:babel-core/register"
   },
   "author": "Michael J Melton <meltonm83@gmail.com>",
@@ -26,11 +27,13 @@
     "mocha": "^3.0.0",
     "node-sass": "^3.8.0",
     "nodemon": "^1.9.2",
-    "react-addons-test-utils": "^15.3.0"
+    "react-addons-test-utils": "^15.3.0",
+    "webpack": "^1.13.1",
+    "webpack-dev-server": "^1.14.1"
   },
   "babel": {
     "presets": [
-      "es2015"
+      "react", "stage-2", "es2015"
     ]
   }
 }
