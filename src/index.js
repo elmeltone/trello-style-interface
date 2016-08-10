@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { guid } from './guid';
+import guid from './guid';
 
 const Card = React.createClass({
   handleDeleteCard: function() {
