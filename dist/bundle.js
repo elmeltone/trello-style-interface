@@ -61,477 +61,13 @@
 
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 
-	var _guid = __webpack_require__(173);
+	var _BoardsDashboard = __webpack_require__(173);
 
-	var _guid2 = _interopRequireDefault(_guid);
+	var _BoardsDashboard2 = _interopRequireDefault(_BoardsDashboard);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var Card = _react2.default.createClass({
-	  displayName: 'Card',
-
-	  handleDeleteCard: function handleDeleteCard() {
-	    this.props.onDeleteCard({
-	      id: this.props.id,
-	      board: this.props.boardID,
-	      deck: this.props.deckID
-	    });
-	  },
-	  render: function render() {
-	    return _react2.default.createElement(
-	      'div',
-	      { className: 'cards' },
-	      _react2.default.createElement(
-	        'span',
-	        {
-	          className: 'delete card-icon',
-	          onClick: this.handleDeleteCard
-	        },
-	        _react2.default.createElement(
-	          'div',
-	          null,
-	          'x'
-	        )
-	      ),
-	      this.props.text
-	    );
-	  }
-	});
-
-	var CardInput = _react2.default.createClass({
-	  displayName: 'CardInput',
-
-	  handleNewCard: function handleNewCard(e) {
-	    e.preventDefault();
-	    this.props.onClick({
-	      title: this.refs.title.value,
-	      board: this.props.boardID,
-	      deck: this.props.deckID
-	    });
-	    this.refs.title.value = '';
-	  },
-	  render: function render() {
-	    return _react2.default.createElement(
-	      'div',
-	      { className: 'card-form' },
-	      _react2.default.createElement(
-	        'form',
-	        { onSubmit: this.handleNewCard },
-	        _react2.default.createElement('input', { className: 'card-input', ref: 'title', type: 'text',
-	          placeholder: 'new card' })
-	      )
-	    );
-	  }
-	});
-
-	var Deck = _react2.default.createClass({
-	  displayName: 'Deck',
-
-	  handleNewCard: function handleNewCard(args) {
-	    this.props.onCardSubmit(args);
-	  },
-	  handleDeleteCard: function handleDeleteCard(args) {
-	    this.props.onDeleteCard(args);
-	  },
-	  handleDeleteDeck: function handleDeleteDeck() {
-	    this.props.onDeleteDeck({
-	      id: this.props.id,
-	      board: this.props.boardID
-	    });
-	  },
-	  render: function render() {
-	    var _this = this;
-
-	    var cards = this.props.cards.map(function (card) {
-	      return _react2.default.createElement(Card, {
-	        key: card.id,
-	        id: card.id,
-	        text: card.text,
-	        boardID: _this.props.boardID,
-	        deckID: _this.props.id,
-	        onDeleteCard: _this.handleDeleteCard
-	      });
-	    });
-	    return _react2.default.createElement(
-	      'div',
-	      { className: 'decks' },
-	      _react2.default.createElement(
-	        'span',
-	        {
-	          className: 'delete deck-icon',
-	          onClick: this.handleDeleteDeck
-	        },
-	        _react2.default.createElement(
-	          'div',
-	          null,
-	          'X'
-	        )
-	      ),
-	      _react2.default.createElement(
-	        'h3',
-	        null,
-	        this.props.title
-	      ),
-	      cards,
-	      _react2.default.createElement(CardInput, {
-	        boardID: this.props.boardID,
-	        deckID: this.props.id,
-	        onClick: this.handleNewCard
-	      })
-	    );
-	  }
-	});
-
-	var DeckInput = _react2.default.createClass({
-	  displayName: 'DeckInput',
-
-	  handleNewDeck: function handleNewDeck(e) {
-	    e.preventDefault();
-	    this.props.onClick({
-	      title: this.refs.title.value,
-	      board: this.props.boardID,
-	      cards: this.props.cards
-	    });
-	    this.refs.title.value = '';
-	  },
-	  render: function render() {
-	    return _react2.default.createElement(
-	      'div',
-	      { className: 'deck-form' },
-	      _react2.default.createElement(
-	        'form',
-	        { onSubmit: this.handleNewDeck },
-	        _react2.default.createElement('input', { className: 'decks add', ref: 'title',
-	          type: 'text', placeholder: 'new deck' })
-	      )
-	    );
-	  }
-	});
-
-	var Board = _react2.default.createClass({
-	  displayName: 'Board',
-
-	  handleNewCard: function handleNewCard(args) {
-	    this.props.onCardSubmit(args);
-	  },
-	  handleDeleteCard: function handleDeleteCard(args) {
-	    this.props.onDeleteCard(args);
-	  },
-	  handleNewDeck: function handleNewDeck(args) {
-	    this.props.onDeckSubmit(args);
-	  },
-	  handleDeleteDeck: function handleDeleteDeck(args) {
-	    this.props.onDeleteDeck(args);
-	  },
-	  handleDeleteBoard: function handleDeleteBoard() {
-	    this.props.onDeleteBoard({
-	      id: this.props.id
-	    });
-	  },
-	  render: function render() {
-	    var _this2 = this;
-
-	    var decks = this.props.decks.map(function (deck) {
-	      return _react2.default.createElement(Deck, {
-	        key: deck.id,
-	        id: deck.id,
-	        boardID: _this2.props.id,
-	        title: deck.title,
-	        cards: deck.cards,
-	        onCardSubmit: _this2.handleNewCard,
-	        onDeleteCard: _this2.handleDeleteCard,
-	        onDeleteDeck: _this2.handleDeleteDeck
-	      });
-	    });
-	    return _react2.default.createElement(
-	      'div',
-	      { className: 'boards' },
-	      _react2.default.createElement(
-	        'span',
-	        {
-	          className: 'delete board-icon',
-	          onClick: this.handleDeleteBoard
-	        },
-	        _react2.default.createElement(
-	          'div',
-	          null,
-	          'X'
-	        )
-	      ),
-	      _react2.default.createElement(
-	        'h2',
-	        null,
-	        this.props.title
-	      ),
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'decks-list' },
-	        decks,
-	        _react2.default.createElement(DeckInput, {
-	          onClick: this.handleNewDeck,
-	          boardID: this.props.id,
-	          cards: []
-	        })
-	      )
-	    );
-	  }
-	});
-
-	var BoardInput = _react2.default.createClass({
-	  displayName: 'BoardInput',
-
-	  handleNewBoard: function handleNewBoard(e) {
-	    e.preventDefault();
-	    this.props.onClick({
-	      title: this.refs.title.value,
-	      decks: this.props.decks
-	    });
-	    this.refs.title.value = '';
-	  },
-	  render: function render() {
-	    return _react2.default.createElement(
-	      'div',
-	      { className: 'board-form' },
-	      _react2.default.createElement(
-	        'form',
-	        { onSubmit: this.handleNewBoard },
-	        _react2.default.createElement('input', { className: 'board-input', ref: 'title', type: 'text',
-	          placeholder: 'new board' })
-	      )
-	    );
-	  }
-	});
-
-	var BoardList = _react2.default.createClass({
-	  displayName: 'BoardList',
-
-	  handleNewCard: function handleNewCard(args) {
-	    this.props.onCardSubmit(args);
-	  },
-	  handleDeleteCard: function handleDeleteCard(args) {
-	    this.props.onDeleteCard(args);
-	  },
-	  handleNewDeck: function handleNewDeck(args) {
-	    this.props.onDeckSubmit(args);
-	  },
-	  handleDeleteDeck: function handleDeleteDeck(args) {
-	    this.props.onDeleteDeck(args);
-	  },
-	  handleNewBoard: function handleNewBoard(args) {
-	    this.props.onBoardSubmit(args);
-	  },
-	  handleDeleteBoard: function handleDeleteBoard(args) {
-	    this.props.onDeleteBoard(args);
-	  },
-	  render: function render() {
-	    var _this3 = this;
-
-	    var boards = this.props.boards.map(function (board) {
-	      return _react2.default.createElement(Board, {
-	        key: board.id,
-	        id: board.id,
-	        title: board.title,
-	        decks: board.decks,
-	        onCardSubmit: _this3.handleNewCard,
-	        onDeleteCard: _this3.handleDeleteCard,
-	        onDeckSubmit: _this3.handleNewDeck,
-	        onDeleteDeck: _this3.handleDeleteDeck,
-	        onDeleteBoard: _this3.handleDeleteBoard
-	      });
-	    });
-	    return _react2.default.createElement(
-	      'div',
-	      null,
-	      boards,
-	      _react2.default.createElement(BoardInput, {
-	        onClick: this.handleNewBoard,
-	        decks: []
-	      })
-	    );
-	  }
-	});
-
-	var BoardsDashboard = _react2.default.createClass({
-	  displayName: 'BoardsDashboard',
-
-	  getInitialState: function getInitialState() {
-	    return {
-	      boards: [{
-	        title: "things to do today",
-	        id: 1,
-	        decks: [{
-	          title: "before work",
-	          id: 1,
-	          cards: [{
-	            text: "feed the dogs",
-	            id: 2
-	          }, {
-	            text: "take the trash out",
-	            id: 1
-	          }]
-	        }, {
-	          title: "after work",
-	          id: 2,
-	          cards: [{
-	            text: "walk the dogs",
-	            id: 1
-	          }, {
-	            text: "find barrel of wine to swim in",
-	            id: 2
-	          }]
-	        }]
-	      }]
-	    };
-	  },
-	  handleNewCard: function handleNewCard(args) {
-	    console.log(args);
-	    function newCard(title) {
-	      var card = {
-	        text: title,
-	        id: (0, _guid2.default)()
-	      };
-	      return card;
-	    };
-	    var c = newCard(args.title);
-	    var boards = this.state.boards;
-	    var board = 0;
-	    var deck = 0;
-	    for (var i = 0; i < boards.length; i++) {
-	      if (boards[i].id == args.board) {
-	        board = i;
-	      };
-	      for (var j = 0; j < boards[i].decks.length; j++) {
-	        if (boards[i].decks[j].id == args.deck) {
-	          deck = j;
-	        }
-	      }
-	    }
-	    boards[board].decks[deck].cards.push(c);
-	    this.setState({
-	      boards: boards
-	    });
-	  },
-	  handleDeleteCard: function handleDeleteCard(args) {
-	    console.log(args);
-	    var c = args.id;
-	    var boards = this.state.boards;
-	    var board = 0;
-	    var deck = 0;
-	    var card = 0;
-	    for (var i = 0; i < boards.length; i++) {
-	      if (boards[i].id == args.board) {
-	        board = i;
-	      };
-	      for (var j = 0; j < boards[i].decks.length; j++) {
-	        if (boards[i].decks[j].id == args.deck) {
-	          deck = j;
-	        };
-	        for (var k = 0; k < boards[i].decks[j].cards.length; k++) {
-	          if (boards[i].decks[j].cards[k].id == args.id) {
-	            card = k;
-	          };
-	        }
-	      }
-	    }
-	    boards[board].decks[deck].cards.splice(card, 1);
-	    this.setState({
-	      boards: boards
-	    });
-	  },
-	  handleNewDeck: function handleNewDeck(args) {
-	    console.log(args);
-	    function newDeck(opts) {
-	      var deck = {
-	        title: opts.title,
-	        id: (0, _guid2.default)(),
-	        cards: opts.cards
-	      };
-	      return deck;
-	    };
-	    var d = newDeck(args);
-	    var boards = this.state.boards;
-	    var board = 0;
-	    for (var i = 0; i < boards.length; i++) {
-	      if (boards[i].id == args.board) {
-	        board = i;
-	      }
-	    }
-	    boards[board].decks.push(d);
-	    this.setState({
-	      boards: boards
-	    });
-	  },
-	  handleDeleteDeck: function handleDeleteDeck(args) {
-	    console.log(args);
-	    var d = args.id;
-	    var boards = this.state.boards;
-	    var board = 0;
-	    var deck = 0;
-	    for (var i = 0; i < boards.length; i++) {
-	      if (boards[i].id == args.board) {
-	        board = i;
-	      };
-	      for (var j = 0; j < boards[i].decks.length; j++) {
-	        if (boards[i].decks[j].id == args.id) {
-	          deck = j;
-	        };
-	      }
-	    }
-	    boards[board].decks.splice(deck, 1);
-	    this.setState({
-	      boards: boards
-	    });
-	  },
-	  handleNewBoard: function handleNewBoard(args) {
-	    console.log(args);
-	    function newBoard(opts) {
-	      var board = {
-	        title: opts.title,
-	        id: (0, _guid2.default)(),
-	        decks: opts.decks
-	      };
-	      return board;
-	    };
-	    var b = newBoard(args);
-	    var boards = this.state.boards;
-	    boards.push(b);
-	    this.setState({
-	      boards: boards
-	    });
-	  },
-	  handleDeleteBoard: function handleDeleteBoard(data) {
-	    console.log(data);
-	    var b = data;
-	    var boards = this.state.boards;
-	    var board = 0;
-	    for (var i = 0; i < boards.length; i++) {
-	      if (boards[i].id == data) {
-	        board = i;
-	      };
-	    }
-	    boards.splice(board, 1);
-	    this.setState({
-	      boards: boards
-	    });
-	  },
-	  render: function render() {
-	    return _react2.default.createElement(
-	      'div',
-	      { className: 'dashboard' },
-	      _react2.default.createElement(BoardList, {
-	        boards: this.state.boards,
-	        onCardSubmit: this.handleNewCard,
-	        onDeleteCard: this.handleDeleteCard,
-	        onDeckSubmit: this.handleNewDeck,
-	        onDeleteDeck: this.handleDeleteDeck,
-	        onBoardSubmit: this.handleNewBoard,
-	        onDeleteBoard: this.handleDeleteBoard
-	      })
-	    );
-	  }
-	});
-
-	_reactDom2.default.render(_react2.default.createElement(BoardsDashboard, null), document.getElementById('content'));
+	_reactDom2.default.render(_react2.default.createElement(_BoardsDashboard2.default, null), document.getElementById('content'));
 
 /***/ },
 /* 2 */
@@ -21608,6 +21144,190 @@
 
 /***/ },
 /* 173 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _guid = __webpack_require__(174);
+
+	var _guid2 = _interopRequireDefault(_guid);
+
+	var _boards = __webpack_require__(175);
+
+	var _boards2 = _interopRequireDefault(_boards);
+
+	var _BoardList = __webpack_require__(176);
+
+	var _BoardList2 = _interopRequireDefault(_BoardList);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var BoardsDashboard = _react2.default.createClass({
+	  displayName: 'BoardsDashboard',
+
+	  getInitialState: function getInitialState() {
+	    return _boards2.default;
+	  },
+	  handleNewCard: function handleNewCard(args) {
+	    console.log(args);
+	    function newCard(title) {
+	      var card = {
+	        text: title,
+	        id: (0, _guid2.default)()
+	      };
+	      return card;
+	    };
+	    var c = newCard(args.title);
+	    var boards = this.state.boards;
+	    var board = 0;
+	    var deck = 0;
+	    for (var i = 0; i < boards.length; i++) {
+	      if (boards[i].id == args.board) {
+	        board = i;
+	      };
+	      for (var j = 0; j < boards[i].decks.length; j++) {
+	        if (boards[i].decks[j].id == args.deck) {
+	          deck = j;
+	        }
+	      }
+	    }
+	    boards[board].decks[deck].cards.push(c);
+	    this.setState({
+	      boards: boards
+	    });
+	  },
+	  handleDeleteCard: function handleDeleteCard(args) {
+	    console.log(args);
+	    var c = args.id;
+	    var boards = this.state.boards;
+	    var board = 0;
+	    var deck = 0;
+	    var card = 0;
+	    for (var i = 0; i < boards.length; i++) {
+	      if (boards[i].id == args.board) {
+	        board = i;
+	      };
+	      for (var j = 0; j < boards[i].decks.length; j++) {
+	        if (boards[i].decks[j].id == args.deck) {
+	          deck = j;
+	        };
+	        for (var k = 0; k < boards[i].decks[j].cards.length; k++) {
+	          if (boards[i].decks[j].cards[k].id == args.id) {
+	            card = k;
+	          };
+	        }
+	      }
+	    }
+	    boards[board].decks[deck].cards.splice(card, 1);
+	    this.setState({
+	      boards: boards
+	    });
+	  },
+	  handleNewDeck: function handleNewDeck(args) {
+	    console.log(args);
+	    function newDeck(opts) {
+	      var deck = {
+	        title: opts.title,
+	        id: (0, _guid2.default)(),
+	        cards: opts.cards
+	      };
+	      return deck;
+	    };
+	    var d = newDeck(args);
+	    var boards = this.state.boards;
+	    var board = 0;
+	    for (var i = 0; i < boards.length; i++) {
+	      if (boards[i].id == args.board) {
+	        board = i;
+	      }
+	    }
+	    boards[board].decks.push(d);
+	    this.setState({
+	      boards: boards
+	    });
+	  },
+	  handleDeleteDeck: function handleDeleteDeck(args) {
+	    console.log(args);
+	    var d = args.id;
+	    var boards = this.state.boards;
+	    var board = 0;
+	    var deck = 0;
+	    for (var i = 0; i < boards.length; i++) {
+	      if (boards[i].id == args.board) {
+	        board = i;
+	      };
+	      for (var j = 0; j < boards[i].decks.length; j++) {
+	        if (boards[i].decks[j].id == args.id) {
+	          deck = j;
+	        };
+	      }
+	    }
+	    boards[board].decks.splice(deck, 1);
+	    this.setState({
+	      boards: boards
+	    });
+	  },
+	  handleNewBoard: function handleNewBoard(args) {
+	    console.log(args);
+	    function newBoard(opts) {
+	      var board = {
+	        title: opts.title,
+	        id: (0, _guid2.default)(),
+	        decks: opts.decks
+	      };
+	      return board;
+	    };
+	    var b = newBoard(args);
+	    var boards = this.state.boards;
+	    boards.push(b);
+	    this.setState({
+	      boards: boards
+	    });
+	  },
+	  handleDeleteBoard: function handleDeleteBoard(data) {
+	    console.log(data);
+	    var b = data;
+	    var boards = this.state.boards;
+	    var board = 0;
+	    for (var i = 0; i < boards.length; i++) {
+	      if (boards[i].id == data) {
+	        board = i;
+	      };
+	    }
+	    boards.splice(board, 1);
+	    this.setState({
+	      boards: boards
+	    });
+	  },
+	  render: function render() {
+	    return _react2.default.createElement(
+	      'div',
+	      { className: 'dashboard' },
+	      _react2.default.createElement(_BoardList2.default, {
+	        boards: this.state.boards,
+	        onCardSubmit: this.handleNewCard,
+	        onDeleteCard: this.handleDeleteCard,
+	        onDeckSubmit: this.handleNewDeck,
+	        onDeleteDeck: this.handleDeleteDeck,
+	        onBoardSubmit: this.handleNewBoard,
+	        onDeleteBoard: this.handleDeleteBoard
+	      })
+	    );
+	  }
+	});
+
+	exports.default = BoardsDashboard;
+
+/***/ },
+/* 174 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -21621,6 +21341,477 @@
 	};
 
 	;
+
+/***/ },
+/* 175 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = {
+	  boards: [{
+	    title: "things to do today",
+	    id: 1,
+	    decks: [{
+	      title: "before work",
+	      id: 1,
+	      cards: [{
+	        text: "feed the dogs",
+	        id: 2
+	      }, {
+	        text: "take the trash out",
+	        id: 1
+	      }]
+	    }, {
+	      title: "after work",
+	      id: 2,
+	      cards: [{
+	        text: "walk the dogs",
+	        id: 1
+	      }, {
+	        text: "find barrel of wine to swim in",
+	        id: 2
+	      }]
+	    }]
+	  }]
+	};
+
+/***/ },
+/* 176 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _Board = __webpack_require__(177);
+
+	var _Board2 = _interopRequireDefault(_Board);
+
+	var _BoardInput = __webpack_require__(182);
+
+	var _BoardInput2 = _interopRequireDefault(_BoardInput);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var BoardList = _react2.default.createClass({
+	  displayName: 'BoardList',
+
+	  handleNewCard: function handleNewCard(args) {
+	    this.props.onCardSubmit(args);
+	  },
+	  handleDeleteCard: function handleDeleteCard(args) {
+	    this.props.onDeleteCard(args);
+	  },
+	  handleNewDeck: function handleNewDeck(args) {
+	    this.props.onDeckSubmit(args);
+	  },
+	  handleDeleteDeck: function handleDeleteDeck(args) {
+	    this.props.onDeleteDeck(args);
+	  },
+	  handleNewBoard: function handleNewBoard(args) {
+	    this.props.onBoardSubmit(args);
+	  },
+	  handleDeleteBoard: function handleDeleteBoard(args) {
+	    this.props.onDeleteBoard(args);
+	  },
+	  render: function render() {
+	    var _this = this;
+
+	    var boards = this.props.boards.map(function (board) {
+	      return _react2.default.createElement(_Board2.default, {
+	        key: board.id,
+	        id: board.id,
+	        title: board.title,
+	        decks: board.decks,
+	        onCardSubmit: _this.handleNewCard,
+	        onDeleteCard: _this.handleDeleteCard,
+	        onDeckSubmit: _this.handleNewDeck,
+	        onDeleteDeck: _this.handleDeleteDeck,
+	        onDeleteBoard: _this.handleDeleteBoard
+	      });
+	    });
+	    return _react2.default.createElement(
+	      'div',
+	      null,
+	      boards,
+	      _react2.default.createElement(_BoardInput2.default, {
+	        onClick: this.handleNewBoard,
+	        decks: []
+	      })
+	    );
+	  }
+	});
+
+	exports.default = BoardList;
+
+/***/ },
+/* 177 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _Deck = __webpack_require__(178);
+
+	var _Deck2 = _interopRequireDefault(_Deck);
+
+	var _DeckInput = __webpack_require__(181);
+
+	var _DeckInput2 = _interopRequireDefault(_DeckInput);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var Board = _react2.default.createClass({
+	  displayName: 'Board',
+
+	  handleNewCard: function handleNewCard(args) {
+	    this.props.onCardSubmit(args);
+	  },
+	  handleDeleteCard: function handleDeleteCard(args) {
+	    this.props.onDeleteCard(args);
+	  },
+	  handleNewDeck: function handleNewDeck(args) {
+	    this.props.onDeckSubmit(args);
+	  },
+	  handleDeleteDeck: function handleDeleteDeck(args) {
+	    this.props.onDeleteDeck(args);
+	  },
+	  handleDeleteBoard: function handleDeleteBoard() {
+	    this.props.onDeleteBoard({
+	      id: this.props.id
+	    });
+	  },
+	  render: function render() {
+	    var _this = this;
+
+	    var decks = this.props.decks.map(function (deck) {
+	      return _react2.default.createElement(_Deck2.default, {
+	        key: deck.id,
+	        id: deck.id,
+	        boardID: _this.props.id,
+	        title: deck.title,
+	        cards: deck.cards,
+	        onCardSubmit: _this.handleNewCard,
+	        onDeleteCard: _this.handleDeleteCard,
+	        onDeleteDeck: _this.handleDeleteDeck
+	      });
+	    });
+	    return _react2.default.createElement(
+	      'div',
+	      { className: 'boards' },
+	      _react2.default.createElement(
+	        'span',
+	        {
+	          className: 'delete board-icon',
+	          onClick: this.handleDeleteBoard
+	        },
+	        _react2.default.createElement(
+	          'div',
+	          null,
+	          'X'
+	        )
+	      ),
+	      _react2.default.createElement(
+	        'h2',
+	        null,
+	        this.props.title
+	      ),
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'decks-list' },
+	        decks,
+	        _react2.default.createElement(_DeckInput2.default, {
+	          onClick: this.handleNewDeck,
+	          boardID: this.props.id,
+	          cards: []
+	        })
+	      )
+	    );
+	  }
+	});
+
+	exports.default = Board;
+
+/***/ },
+/* 178 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _Card = __webpack_require__(179);
+
+	var _Card2 = _interopRequireDefault(_Card);
+
+	var _CardInput = __webpack_require__(180);
+
+	var _CardInput2 = _interopRequireDefault(_CardInput);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var Deck = _react2.default.createClass({
+	  displayName: 'Deck',
+
+	  handleNewCard: function handleNewCard(args) {
+	    this.props.onCardSubmit(args);
+	  },
+	  handleDeleteCard: function handleDeleteCard(args) {
+	    this.props.onDeleteCard(args);
+	  },
+	  handleDeleteDeck: function handleDeleteDeck() {
+	    this.props.onDeleteDeck({
+	      id: this.props.id,
+	      board: this.props.boardID
+	    });
+	  },
+	  render: function render() {
+	    var _this = this;
+
+	    var cards = this.props.cards.map(function (card) {
+	      return _react2.default.createElement(_Card2.default, {
+	        key: card.id,
+	        id: card.id,
+	        text: card.text,
+	        boardID: _this.props.boardID,
+	        deckID: _this.props.id,
+	        onDeleteCard: _this.handleDeleteCard
+	      });
+	    });
+	    return _react2.default.createElement(
+	      'div',
+	      { className: 'decks' },
+	      _react2.default.createElement(
+	        'span',
+	        {
+	          className: 'delete deck-icon',
+	          onClick: this.handleDeleteDeck
+	        },
+	        _react2.default.createElement(
+	          'div',
+	          null,
+	          'X'
+	        )
+	      ),
+	      _react2.default.createElement(
+	        'h3',
+	        null,
+	        this.props.title
+	      ),
+	      cards,
+	      _react2.default.createElement(_CardInput2.default, {
+	        boardID: this.props.boardID,
+	        deckID: this.props.id,
+	        onClick: this.handleNewCard
+	      })
+	    );
+	  }
+	});
+
+	exports.default = Deck;
+
+/***/ },
+/* 179 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var Card = _react2.default.createClass({
+	  displayName: "Card",
+
+	  handleDeleteCard: function handleDeleteCard() {
+	    this.props.onDeleteCard({
+	      id: this.props.id,
+	      board: this.props.boardID,
+	      deck: this.props.deckID
+	    });
+	  },
+	  render: function render() {
+	    return _react2.default.createElement(
+	      "div",
+	      { className: "cards" },
+	      _react2.default.createElement(
+	        "span",
+	        {
+	          className: "delete card-icon",
+	          onClick: this.handleDeleteCard
+	        },
+	        _react2.default.createElement(
+	          "div",
+	          null,
+	          "x"
+	        )
+	      ),
+	      this.props.text
+	    );
+	  }
+	});
+
+	exports.default = Card;
+
+/***/ },
+/* 180 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var CardInput = _react2.default.createClass({
+	  displayName: 'CardInput',
+
+	  handleNewCard: function handleNewCard(e) {
+	    e.preventDefault();
+	    this.props.onClick({
+	      title: this.refs.title.value,
+	      board: this.props.boardID,
+	      deck: this.props.deckID
+	    });
+	    this.refs.title.value = '';
+	  },
+	  render: function render() {
+	    return _react2.default.createElement(
+	      'div',
+	      { className: 'card-form' },
+	      _react2.default.createElement(
+	        'form',
+	        { onSubmit: this.handleNewCard },
+	        _react2.default.createElement('input', { className: 'card-input', ref: 'title', type: 'text',
+	          placeholder: 'new card' })
+	      )
+	    );
+	  }
+	});
+
+	exports.default = CardInput;
+
+/***/ },
+/* 181 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var DeckInput = _react2.default.createClass({
+	  displayName: 'DeckInput',
+
+	  handleNewDeck: function handleNewDeck(e) {
+	    e.preventDefault();
+	    this.props.onClick({
+	      title: this.refs.title.value,
+	      board: this.props.boardID,
+	      cards: this.props.cards
+	    });
+	    this.refs.title.value = '';
+	  },
+	  render: function render() {
+	    return _react2.default.createElement(
+	      'div',
+	      { className: 'deck-form' },
+	      _react2.default.createElement(
+	        'form',
+	        { onSubmit: this.handleNewDeck },
+	        _react2.default.createElement('input', { className: 'decks add', ref: 'title',
+	          type: 'text', placeholder: 'new deck' })
+	      )
+	    );
+	  }
+	});
+
+	exports.default = DeckInput;
+
+/***/ },
+/* 182 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var BoardInput = _react2.default.createClass({
+	  displayName: 'BoardInput',
+
+	  handleNewBoard: function handleNewBoard(e) {
+	    e.preventDefault();
+	    this.props.onClick({
+	      title: this.refs.title.value,
+	      decks: this.props.decks
+	    });
+	    this.refs.title.value = '';
+	  },
+	  render: function render() {
+	    return _react2.default.createElement(
+	      'div',
+	      { className: 'board-form' },
+	      _react2.default.createElement(
+	        'form',
+	        { onSubmit: this.handleNewBoard },
+	        _react2.default.createElement('input', { className: 'board-input', ref: 'title', type: 'text',
+	          placeholder: 'new board' })
+	      )
+	    );
+	  }
+	});
+
+	exports.default = BoardInput;
 
 /***/ }
 /******/ ]);
