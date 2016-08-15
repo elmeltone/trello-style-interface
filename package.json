@@ -9,13 +9,15 @@
     "build:sass": "node-sass src/sass/main.scss src/main.css",
     "watch:sass": "nodemon -e scss -w src/sass -x 'npm run build:sass'",
     "build:js": "webpack --config webpack.config.js",
-    "test": "mocha './src/**/*.spec.js' --compilers js:babel-core/register"
+    "test": "mocha './src/**/*.spec.js' --compilers js:babel-core/register",
+    "start": "webpack-dev-server"
   },
   "author": "Michael J Melton <meltonm83@gmail.com>",
   "license": "ISC",
   "dependencies": {
     "react": "^15.2.1",
-    "react-dom": "^15.2.1"
+    "react-dom": "^15.2.1",
+    "react-router": "^2.6.1"
   },
   "devDependencies": {
     "babel-core": "^6.13.2",
@@ -33,7 +35,9 @@
   },
   "babel": {
     "presets": [
-      "react", "stage-2", "es2015"
+      "react",
+      "stage-2",
+      "es2015"
     ]
   }
 }
