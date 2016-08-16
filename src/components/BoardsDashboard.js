@@ -8,11 +8,6 @@ const BoardsDashboard = React.createClass({
   getInitialState: function() {
     return boards;
   },
-  componentDidMount(){
-    this.setState({
-      selectedBoard: 0
-    });
-  },
   handleNewCard: function(args) {
     console.log(args);
     function newCard(title) {
@@ -145,10 +140,11 @@ const BoardsDashboard = React.createClass({
     });
   },
   render: function() {
+    const board = (typeof this.props.params.board === "undefined") ? 0 : this.props.params.board;
     return (
       <div className="dashboard">
         <BoardList
-          boards={this.state.boards[this.state.selectedBoard]}
+          boards={this.state.boards[board]}
           onCardSubmit={this.handleNewCard}
           onDeleteCard={this.handleDeleteCard}
           onDeckSubmit={this.handleNewDeck}

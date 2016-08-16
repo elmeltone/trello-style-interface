@@ -26802,12 +26802,6 @@
 	  getInitialState: function getInitialState() {
 	    return _boards2.default;
 	  },
-	  componentDidMount: function componentDidMount() {
-	    this.setState({
-	      selectedBoard: 0
-	    });
-	  },
-
 	  handleNewCard: function handleNewCard(args) {
 	    console.log(args);
 	    function newCard(title) {
@@ -26940,11 +26934,12 @@
 	    });
 	  },
 	  render: function render() {
+	    var board = typeof this.props.params.board === "undefined" ? 0 : this.props.params.board;
 	    return _react2.default.createElement(
 	      'div',
 	      { className: 'dashboard' },
 	      _react2.default.createElement(_BoardList2.default, {
-	        boards: this.state.boards[this.state.selectedBoard],
+	        boards: this.state.boards[board],
 	        onCardSubmit: this.handleNewCard,
 	        onDeleteCard: this.handleDeleteCard,
 	        onDeckSubmit: this.handleNewDeck,
