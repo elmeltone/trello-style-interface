@@ -1,4 +1,5 @@
 import React from 'react';
+
 import guid from '../utils/guid';
 import boards from '../utils/boards';
 import BoardList from './BoardList';
@@ -6,6 +7,11 @@ import BoardList from './BoardList';
 const BoardsDashboard = React.createClass({
   getInitialState: function() {
     return boards;
+  },
+  componentDidMount(){
+    this.setState({
+      selectedBoard: 0
+    });
   },
   handleNewCard: function(args) {
     console.log(args);
@@ -142,7 +148,7 @@ const BoardsDashboard = React.createClass({
     return (
       <div className="dashboard">
         <BoardList
-          boards={this.state.boards}
+          boards={this.state.boards[this.state.selectedBoard]}
           onCardSubmit={this.handleNewCard}
           onDeleteCard={this.handleDeleteCard}
           onDeckSubmit={this.handleNewDeck}

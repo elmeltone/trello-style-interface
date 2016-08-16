@@ -22,9 +22,11 @@ const BoardList = React.createClass({
     this.props.onDeleteBoard(args);
   },
   render: function() {
-    const boards = this.props.boards.map((board) => {
-      return (
-        <Board
+    console.log(this.props.boards);
+    const board = this.props.boards;
+    //const boards = this.props.boards.map((board) => {
+      //return (
+        const boards = <Board
           key={board.id}
           id={board.id}
           title={board.title}
@@ -34,9 +36,9 @@ const BoardList = React.createClass({
           onDeckSubmit={this.handleNewDeck}
           onDeleteDeck={this.handleDeleteDeck}
           onDeleteBoard={this.handleDeleteBoard}
-        />
-      );
-    });
+        />;
+     // );
+   // });
     return (
       <div>
         {boards}
