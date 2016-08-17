@@ -15,9 +15,6 @@ const BoardList = React.createClass({
   handleDeleteDeck: function(args) {
     this.props.onDeleteDeck(args);
   },
-  handleNewBoard: function(args) {
-    this.props.onBoardSubmit(args);
-  },
   handleDeleteBoard: function(args) {
     this.props.onDeleteBoard(args);
   },
@@ -42,10 +39,6 @@ const BoardList = React.createClass({
     return (
       <div>
         {boards}
-          <BoardInput
-            onClick={this.handleNewBoard}
-            decks={[]}
-          />
       </div>
     );
   },

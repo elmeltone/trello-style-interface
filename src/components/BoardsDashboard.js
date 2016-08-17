@@ -107,23 +107,6 @@ const BoardsDashboard = React.createClass({
       boards: boards,
     });
   },
-  handleNewBoard: function(args) {
-    console.log(args);
-    function newBoard(opts) {
-      const board = {
-        title: opts.title,
-        id: guid(),
-        decks: opts.decks
-      };
-      return board;
-    };
-    const b = newBoard(args);
-    let boards = this.state.boards;
-    boards.push(b);
-    this.setState({
-      boards: boards,
-    });
-  },
   handleDeleteBoard: function(data) {
     console.log(data);
     const b = data;
@@ -149,7 +132,6 @@ const BoardsDashboard = React.createClass({
           onDeleteCard={this.handleDeleteCard}
           onDeckSubmit={this.handleNewDeck}
           onDeleteDeck={this.handleDeleteDeck}
-          onBoardSubmit={this.handleNewBoard}
           onDeleteBoard={this.handleDeleteBoard}
         />
       </div>

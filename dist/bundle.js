@@ -63,7 +63,11 @@
 
 	var _reactRouter = __webpack_require__(173);
 
-	var _BoardsDashboard = __webpack_require__(236);
+	var _IconList = __webpack_require__(236);
+
+	var _IconList2 = _interopRequireDefault(_IconList);
+
+	var _BoardsDashboard = __webpack_require__(237);
 
 	var _BoardsDashboard2 = _interopRequireDefault(_BoardsDashboard);
 
@@ -74,6 +78,11 @@
 	_reactDom2.default.render(_react2.default.createElement(
 	  _reactRouter.Router,
 	  { history: _reactRouter.hashHistory },
+	  _react2.default.createElement(
+	    _reactRouter.Route,
+	    { path: '/' },
+	    _react2.default.createElement(_reactRouter.IndexRoute, { component: _IconList2.default })
+	  ),
 	  _react2.default.createElement(_reactRouter.Route, { path: '/(:board)', component: _BoardsDashboard2.default })
 	), content);
 
@@ -26782,15 +26791,106 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _guid = __webpack_require__(237);
+	var _guid = __webpack_require__(238);
 
 	var _guid2 = _interopRequireDefault(_guid);
 
-	var _boards = __webpack_require__(238);
+	var _boards = __webpack_require__(239);
 
 	var _boards2 = _interopRequireDefault(_boards);
 
-	var _BoardList = __webpack_require__(239);
+	var _Icon = __webpack_require__(247);
+
+	var _Icon2 = _interopRequireDefault(_Icon);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var IconList = _react2.default.createClass({
+	  displayName: 'IconList',
+
+	  getInitialState: function getInitialState() {
+	    return _boards2.default;
+	  },
+	  handleNewBoard: function handleNewBoard(args) {
+	    console.log(args);
+	    function newBoard(opts) {
+	      var board = {
+	        title: opts.title,
+	        id: (0, _guid2.default)(),
+	        decks: opts.decks
+	      };
+	      return board;
+	    };
+	    var b = newBoard(args);
+	    var boards = this.state.boards;
+	    boards.push(b);
+	    this.setState({
+	      boards: boards
+	    });
+	  },
+	  handleDeleteBoard: function handleDeleteBoard(data) {
+	    console.log(data);
+	    var b = data;
+	    var boards = this.state.boards;
+	    var board = 0;
+	    for (var i = 0; i < boards.length; i++) {
+	      if (boards[i].id == data) {
+	        board = i;
+	      };
+	    }
+	    boards.splice(board, 1);
+	    this.setState({
+	      boards: boards
+	    });
+	  },
+	  render: function render() {
+	    var _this = this;
+
+	    var boards = this.props.boards.map(function (board) {
+	      return _react2.default.createElement(_Icon2.default, {
+	        key: board.id,
+	        id: board.id,
+	        title: board.title,
+	        onDeleteBoard: _this.handleDeleteBoard
+	      });
+	    });
+	    return _react2.default.createElement(
+	      'div',
+	      null,
+	      boards,
+	      _react2.default.createElement(BoardInput, {
+	        onClick: this.handleNewBoard,
+	        decks: []
+	      })
+	    );
+	  }
+	});
+
+	exports.default = IconList;
+
+/***/ },
+/* 237 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _guid = __webpack_require__(238);
+
+	var _guid2 = _interopRequireDefault(_guid);
+
+	var _boards = __webpack_require__(239);
+
+	var _boards2 = _interopRequireDefault(_boards);
+
+	var _BoardList = __webpack_require__(240);
 
 	var _BoardList2 = _interopRequireDefault(_BoardList);
 
@@ -26901,23 +27001,6 @@
 	      boards: boards
 	    });
 	  },
-	  handleNewBoard: function handleNewBoard(args) {
-	    console.log(args);
-	    function newBoard(opts) {
-	      var board = {
-	        title: opts.title,
-	        id: (0, _guid2.default)(),
-	        decks: opts.decks
-	      };
-	      return board;
-	    };
-	    var b = newBoard(args);
-	    var boards = this.state.boards;
-	    boards.push(b);
-	    this.setState({
-	      boards: boards
-	    });
-	  },
 	  handleDeleteBoard: function handleDeleteBoard(data) {
 	    console.log(data);
 	    var b = data;
@@ -26944,7 +27027,6 @@
 	        onDeleteCard: this.handleDeleteCard,
 	        onDeckSubmit: this.handleNewDeck,
 	        onDeleteDeck: this.handleDeleteDeck,
-	        onBoardSubmit: this.handleNewBoard,
 	        onDeleteBoard: this.handleDeleteBoard
 	      })
 	    );
@@ -26954,7 +27036,7 @@
 	exports.default = BoardsDashboard;
 
 /***/ },
-/* 237 */
+/* 238 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -26970,7 +27052,7 @@
 	;
 
 /***/ },
-/* 238 */
+/* 239 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -27021,7 +27103,7 @@
 	};
 
 /***/ },
-/* 239 */
+/* 240 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -27034,11 +27116,11 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Board = __webpack_require__(240);
+	var _Board = __webpack_require__(241);
 
 	var _Board2 = _interopRequireDefault(_Board);
 
-	var _BoardInput = __webpack_require__(245);
+	var _BoardInput = __webpack_require__(246);
 
 	var _BoardInput2 = _interopRequireDefault(_BoardInput);
 
@@ -27058,9 +27140,6 @@
 	  },
 	  handleDeleteDeck: function handleDeleteDeck(args) {
 	    this.props.onDeleteDeck(args);
-	  },
-	  handleNewBoard: function handleNewBoard(args) {
-	    this.props.onBoardSubmit(args);
 	  },
 	  handleDeleteBoard: function handleDeleteBoard(args) {
 	    this.props.onDeleteBoard(args);
@@ -27086,11 +27165,7 @@
 	    return _react2.default.createElement(
 	      'div',
 	      null,
-	      boards,
-	      _react2.default.createElement(_BoardInput2.default, {
-	        onClick: this.handleNewBoard,
-	        decks: []
-	      })
+	      boards
 	    );
 	  }
 	});
@@ -27098,7 +27173,7 @@
 	exports.default = BoardList;
 
 /***/ },
-/* 240 */
+/* 241 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -27111,11 +27186,11 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Deck = __webpack_require__(241);
+	var _Deck = __webpack_require__(242);
 
 	var _Deck2 = _interopRequireDefault(_Deck);
 
-	var _DeckInput = __webpack_require__(244);
+	var _DeckInput = __webpack_require__(245);
 
 	var _DeckInput2 = _interopRequireDefault(_DeckInput);
 
@@ -27193,7 +27268,7 @@
 	exports.default = Board;
 
 /***/ },
-/* 241 */
+/* 242 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -27206,11 +27281,11 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Card = __webpack_require__(242);
+	var _Card = __webpack_require__(243);
 
 	var _Card2 = _interopRequireDefault(_Card);
 
-	var _CardInput = __webpack_require__(243);
+	var _CardInput = __webpack_require__(244);
 
 	var _CardInput2 = _interopRequireDefault(_CardInput);
 
@@ -27277,7 +27352,7 @@
 	exports.default = Deck;
 
 /***/ },
-/* 242 */
+/* 243 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -27326,7 +27401,7 @@
 	exports.default = Card;
 
 /***/ },
-/* 243 */
+/* 244 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -27370,7 +27445,7 @@
 	exports.default = CardInput;
 
 /***/ },
-/* 244 */
+/* 245 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -27414,7 +27489,7 @@
 	exports.default = DeckInput;
 
 /***/ },
-/* 245 */
+/* 246 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -27455,6 +27530,60 @@
 	});
 
 	exports.default = BoardInput;
+
+/***/ },
+/* 247 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRouter = __webpack_require__(173);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var Icon = _react2.default.createClass({
+	  displayName: 'Icon',
+
+	  handleDeleteBoard: function handleDeleteBoard() {
+	    this.props.onDeleteBoard({
+	      id: this.props.id,
+	      board: this.props.boardID
+	    });
+	  },
+	  render: function render() {
+	    return _react2.default.createElement(
+	      'div',
+	      { className: 'icons' },
+	      _react2.default.createElement(
+	        _reactRouter.Link,
+	        { to: this.props.title },
+	        _react2.default.createElement(
+	          'span',
+	          {
+	            className: 'delete board-icon',
+	            onClick: this.handleDeleteBoard
+	          },
+	          _react2.default.createElement(
+	            'div',
+	            null,
+	            'x'
+	          )
+	        ),
+	        this.props.title
+	      )
+	    );
+	  }
+	});
+
+	exports.default = Icon;
 
 /***/ }
 /******/ ]);
